@@ -313,12 +313,14 @@ class MqttSubscriberClient(object):
         constructors = [json.loads, int, float, str]
         for constructor in constructors:
             try:
-                return constructor(msg) if constructor == json.loads else {self.json_object_key: constructor(msg)}
-            except ValueError:
+                # Only convert if type is string
+                converted_msg = constructor(msg) if type(msg) == str else msg
+                # Create dict if converted msg isnt already a dict
+                return converted_msg if type(converted_msg) == dict else {self.json_object_key: converted_msg}
+            except (ValueError, TypeError) as error:
                 pass
-
         _LOGGER.exception("Unable to convert %s to a suitable type", payload_json, str(msg.topic)) 
-
+        
     async def save(self, msg):
         """Store msg content to Fledge """
         payload_json = self.convert(msg.payload.decode('utf-8'))
