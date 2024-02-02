@@ -316,7 +316,7 @@ class MqttSubscriberClient(object):
         for constructor in constructors:
             try:
                 # Only convert if type is string
-                converted_msg = constructor(msg) if type(msg) == str else msg
+                converted_msg = constructor(msg) if isinstance(converted_msg, str) else msg
                 # Create dict if converted msg isn't already a dict
                 if not isinstance(converted_msg, dict):
                     converted_msg = {self.reading_datapoint_name_for_primitive_value: converted_msg}
