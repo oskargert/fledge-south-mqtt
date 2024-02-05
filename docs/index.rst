@@ -1,5 +1,6 @@
 .. Images
-.. |mqtt-sub| image:: images/mqtt-sub.png
+.. |mqtt-sub-basics| image:: images/mqtt-sub-basics.png
+.. |mqtt-sub-reading| image:: images/mqtt-sub-reading.png
 
 
 South MQTT
@@ -22,7 +23,8 @@ To create a south service you, as with any other south plugin
   - Configure the plugin
 
     +------------+
-    | |mqtt-sub| |
+    | |mqtt-sub-basics| |
+    | |mqtt-sub-reading| |
     +------------+
 
     - **MQTT Broker host**: Hostname or IP address of the broker to connect to.
@@ -41,6 +43,8 @@ To create a south service you, as with any other south plugin
 
     - **Asset Name**: Name of Asset.
 
+    - **Datapoint Name**: Datapoint name to be used in the reading object only for a primitive value, published to the topic
+
   - Click *Next*
 
   - Enable your service and click *Done*
@@ -50,13 +54,16 @@ Message Payload
 ---------------
 
 The content of the message payload published to the topic, to which the service is configured to subscribe, 
-should be parsable to a JSON object.
+should be parsable to a JSON object, Integer, Float or String.
 
-e.g. `'{"humidity": 93.29, "temp": 16.82}'`
+e.g. `'{"humidity": 93.29, "temp": 16.82}'`, `'100'`, `'90.9'`, `'STRING'`
 
 .. code-block:: console
 
   $ mosquitto_pub -h localhost -t "Room1/conditions" -m '{"humidity": 93.29, "temp": 16.82}'
+  $ mosquitto_pub -h localhost -t "Room1/conditions" -m '100'
+  $ mosquitto_pub -h localhost -t "Room1/conditions" -m '90.9'
+  $ mosquitto_pub -h localhost -t "Room1/conditions" -m 'STRING'
 
 The mosquitto_pub client utility comes with the mosquitto package, and a great tool for conducting quick tests and troubleshooting.
 https://mosquitto.org/man/mosquitto_pub-1.html
