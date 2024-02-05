@@ -1,5 +1,6 @@
 .. Images
-.. |mqtt-sub| image:: images/mqtt-sub.png
+.. |mqtt-sub-basics| image:: images/mqtt-sub-basics.png
+.. |mqtt-sub-reading| image:: images/mqtt-sub-reading.png
 
 
 South MQTT
@@ -22,7 +23,8 @@ To create a south service you, as with any other south plugin
   - Configure the plugin
 
     +------------+
-    | |mqtt-sub| |
+    | |mqtt-sub-basics| |
+    | |mqtt-sub-reading| |
     +------------+
 
     - **MQTT Broker host**: Hostname or IP address of the broker to connect to.
